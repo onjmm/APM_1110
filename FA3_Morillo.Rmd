@@ -1,0 +1,57 @@
+---
+title: "FA3_Morillo"
+author: "MORILLO, JADE MARCO S."
+date: "2024-02-25"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 2.
+
+A binary communication channel carries data as one of two sets of signals denoted by 0 and 1. Owing to noise, a transmitted 0 is sometimes received as a 1, and a transmitted 1 is sometimes received as a 0. For a given channel, it can be assumed that a transmitted 0 is correctly received with probability 0.95, and a transmitted 1 is correctly received with probability 0.75. Also, 70% of all messages are transmitted as a 0. If a signal is sent, determine the probability that:
+
+(a) a 1 was received;
+(b) a 1 was transmitted given than a 1 was received. 
+
+```{r 2}
+T0 <- 0.7
+T1 <- 1 - T0
+R0_given_T0 <- 0.95
+R1_given_T1 <- 0.75
+
+R1 <- R0_given_T0 * T0 + R1_given_T1 * T1
+
+T1_given_R1 <- R1_given_T1 * T1 / R1
+
+cat("Probability that a 1 was received:", R1, "\n")
+cat("Probability that a 1 was transmitted given that a 1 was received:", T1_given_R1, "\n")
+
+```
+
+## 7.
+
+There are three employees working at an IT company: Jane, Amy, and Ava, doing 10%, 30%, and 60% of the programming, respectively. 8% of Jane’s work, 5% of Amy’s work, and just 1% of Ava‘s work is in error. What is the overall percentage of error? If a program is found with an error, who is the most likely person to have written it? 
+
+```{r 7}
+Jane <- 0.10
+Amy <- 0.30
+Ava <- 0.60
+
+Err_Jane <- 0.08
+Err_Amy <- 0.05
+Err_Ava <- 0.01
+
+Err_overall <- Jane * Err_Jane + Amy * Err_Amy + Ava * Err_Ava
+
+cat("Overall percentage of error:", Err_overall * 100, "%\n")
+
+error_df <- data.frame(Employee = c("Jane", "Amy", "Ava"), Error_Percentage = c(Err_Jane, Err_Amy, Err_Ava))
+
+most_likely_person <- error_df[which.max(error_df$Error_Percentage), ]
+
+cat("If a program is found with an error, the most likely person to have written it is:", most_likely_person$Employee, "\n")
+```
+
